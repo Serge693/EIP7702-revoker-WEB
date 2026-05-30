@@ -57,6 +57,7 @@ const GAS_FALLBACK: Record<number, bigint> = {
   1135:    200000n,
   60808:   200000n,
   7777777: 200000n,
+  534352:  200000n,  // Scroll
 };
 const DEFAULT_GAS = 300000n;
 const getFallbackGas = (chainId: number) => GAS_FALLBACK[chainId] ?? DEFAULT_GAS;

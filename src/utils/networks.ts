@@ -129,6 +129,13 @@ export const supportedChains = [
     rpcUrls: { default: { http: ['https://rpc.zora.energy'] } },
     blockExplorers: { default: { name: 'Zora Explorer', url: 'https://explorer.zora.energy' } },
   }),
+  defineChain({
+    id: 534352,
+    name: 'Scroll',
+    nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+    rpcUrls: { default: { http: ['https://rpc.scroll.io'] } },
+    blockExplorers: { default: { name: 'Scrollscan', url: 'https://scrollscan.com' } },
+  }),
 ];
 
 // Сети с предупреждениями
