@@ -1,0 +1,20 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" rx="80" fill="#18181b"/>
+
+  <!-- Shield -->
+  <path d="M200 80 L280 112 L280 210 Q280 268 200 300 Q120 268 120 210 L120 112 Z" fill="#27272a" stroke="#3f3f46" stroke-width="2"/>
+  <path d="M200 96 L264 124 L264 210 Q264 258 200 286 Q136 258 136 210 L136 124 Z" fill="none" stroke="#6366f1" stroke-width="2" opacity="0.7"/>
+
+  <!-- Lock body -->
+  <rect x="180" y="195" width="40" height="32" rx="6" fill="#6366f1"/>
+  <!-- Lock shackle -->
+  <path d="M187 195 L187 181 Q187 164 200 164 Q213 164 213 181 L213 195" fill="none" stroke="#6366f1" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Keyhole -->
+  <circle cx="200" cy="209" r="5" fill="#18181b"/>
+  <rect x="197" y="209" width="6" height="10" rx="2" fill="#18181b"/>
+
+
+  <!-- Text -->
+  <text x="200" y="355" font-size="32" font-weight="700" text-anchor="middle" fill="#ffffff" font-family="system-ui,sans-serif" letter-spacing="-0.5">EIP-7702</text>
+  <text x="200" y="385" font-size="18" text-anchor="middle" fill="#6366f1" font-family="system-ui,sans-serif" letter-spacing="2">REVOKER</text>
+</svg>

@@ -79,6 +79,28 @@ export default function RevokeSection({ address }: Props) {
 
   useEffect(() => { if (address) runScan(); }, [address]);
 
+  const recheckChain = async (chainId: number) => {
+    setChainStatuses(prev =>
+      prev.map(s => s.chainId === chainId ? { ...s, status: 'checking' as const, error: undefined } : s)
+    );
+    const chain = supportedChains.find(c => c.id === chainId);
+    if (!chain) return;
+    try {
+      const res = await fetch(`/api/delegation?address=${address}&chainId=${chainId}`);
+      const data = await res.json();
+      setChainStatuses(prev =>
+        prev.map(s => s.chainId === chainId
+          ? { ...s, status: (data.error ? 'error' : data.delegated ? 'delegated' : 'clean') as ChainStatus['status'], delegateTo: data.delegateTo, error: data.error }
+          : s
+        )
+      );
+    } catch (e: any) {
+      setChainStatuses(prev =>
+        prev.map(s => s.chainId === chainId ? { ...s, status: 'error' as const, error: e.message } : s)
+      );
+    }
+  };
+
   const runScan = async () => {
     setScanning(true);
     setSelectedChainId(null);
@@ -243,6 +265,7 @@ export default function RevokeSection({ address }: Props) {
                 isRevoking={revokingChainId === s.chainId}
                 canRevoke={canProceed && !isLoading}
                 onRevoke={() => handleRevokeChain(s.chainId)}
+                onRetry={() => recheckChain(s.chainId)}
               />
             ))}
           </div>
@@ -254,6 +277,7 @@ export default function RevokeSection({ address }: Props) {
                 isRevoking={revokingChainId === s.chainId}
                 canRevoke={canProceed && !isLoading}
                 onRevoke={() => handleRevokeChain(s.chainId)}
+                onRetry={() => recheckChain(s.chainId)}
               />
             ))}
           </div>
@@ -458,11 +482,13 @@ function ChainRow({
   isRevoking,
   canRevoke,
   onRevoke,
+  onRetry,
 }: {
   s: ChainStatus;
   isRevoking: boolean;
   canRevoke: boolean;
   onRevoke: () => void;
+  onRetry: () => void;
 }) {
   return (
     <div className="flex items-center justify-between px-3 py-2.5 min-h-[48px]">
@@ -473,7 +499,15 @@ function ChainRow({
       <div className="flex items-center gap-2 shrink-0 ml-1">
         {s.status === 'checking' && <span className="text-xs text-zinc-500">...</span>}
         {s.status === 'clean' && <span className="text-xs text-green-500">Clean</span>}
-        {s.status === 'error' && <span className="text-xs text-zinc-500">err</span>}
+        {s.status === 'error' && (
+          <button
+            onClick={onRetry}
+            title={s.error ?? 'RPC error — click to retry'}
+            className="text-xs text-zinc-500 hover:text-yellow-400 transition-colors px-1"
+          >
+            ↻ err
+          </button>
+        )}
         {s.status === 'delegated' && (
           <button
             onClick={onRevoke}
