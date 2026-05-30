@@ -48,7 +48,7 @@ const GAS_FALLBACK: Record<number, bigint> = {
   100:     300000n,
   59144:   300000n,
   81457:   300000n,
-  34443:   300000n,
+  34443:   500000n,  // Mode — увеличен, RPC занижает оценку для EIP-7702
   1868:    300000n,
   324:     500000n,
   80094:   300000n,
@@ -163,7 +163,11 @@ export async function POST(request: NextRequest) {
         to: address,
         authorizationList: [authorization],
       });
-      gas = (estimate * 120n) / 100n;
+      const withBuffer = (estimate * 120n) / 100n;
+      // EIP-7702 транзакция не может быть дешевле ~50000 gas.
+      // Если оценка меньше — RPC не учёл authorizationList (баг некоторых сетей).
+      const MIN_EIP7702_GAS = 50000n;
+      gas = withBuffer < MIN_EIP7702_GAS ? getFallbackGas(chainId) : withBuffer;
     } catch (e) {
       console.warn('[revoke] gas estimation failed, using fallback', e);
     }
