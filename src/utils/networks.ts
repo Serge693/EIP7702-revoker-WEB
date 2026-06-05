@@ -18,6 +18,13 @@ export const supportedChains = [
     blockExplorers: { default: { name: 'Basescan', url: 'https://basescan.org' } },
   }),
   defineChain({
+    id: 57073,
+    name: 'Ink',
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    rpcUrls: { default: { http: ['https://rpc-gel.inkonchain.com'] } },
+    blockExplorers: { default: { name: 'Ink Explorer', url: 'https://explorer.inkonchain.com' } },
+  }),
+  defineChain({
     id: 42161,
     name: 'Arbitrum One',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
@@ -128,6 +135,13 @@ export const supportedChains = [
     nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
     rpcUrls: { default: { http: ['https://rpc.zora.energy'] } },
     blockExplorers: { default: { name: 'Zora Explorer', url: 'https://explorer.zora.energy' } },
+  }),
+  defineChain({
+    id: 98866,
+    name: 'Plume',
+    nativeCurrency: { name: 'Plume', symbol: 'PLUME', decimals: 18 },
+    rpcUrls: { default: { http: ['https://rpc.plume.org'] } },
+    blockExplorers: { default: { name: 'Plume Explorer', url: 'https://explorer.plume.org' } },
   }),
   defineChain({
     id: 534352,
