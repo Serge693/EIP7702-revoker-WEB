@@ -191,6 +191,7 @@ SPONSOR_PRIVATE_KEY=0xYOUR_SPONSOR_WALLET_PRIVATE_KEY
 | Lisk | 1135 |
 | Bob | 60808 |
 | Zora | 7777777 |
+| Plume   | 98866 | PLUME |
 
 > ⚠️ zkSync Era may not fully support EIP-7702 — transactions on that network may fail.
 
